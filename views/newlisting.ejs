@@ -1,0 +1,88 @@
+<% layout("/layouts/boilerplate") %>
+<br>
+    <div class="row">
+        <div class="col-8 offset-2" >
+            <h2>Create a New Listing </h2>
+            <form method="POST" action="/listings" class="needs-validation" novalidate enctype="multipart/form-data" >
+                <div class="mb-3" >
+                    <label for="title" class="form-label" >Title</label>
+                    <input class="form-control" placeholder="Add a catchy title" name="title"
+                    required
+                    />
+                    <div class="valid-feedback">Title looks amazing!</div>
+                </div>
+                <div  class="mb-3">
+                    <label for="description" class="form-label" >Description</label>
+                    <textarea placeholder="enter description" 
+                    class="form-control" 
+                    required
+                    name="description"></textarea> 
+                </div>
+                <div class="invalid-feedback">Please enter a short description</div>
+                <div class="mb-3">
+                    <label for="image" class="form-label" >Upload Listing Image</label>
+                    <input  
+                        class="form-control" 
+                        name="image"
+                        type="file"
+                        required
+                        />
+                </div>
+                <div class="row" >
+                    <div class="mb-3 col-md-4">
+                        <label for="price" class="form-label" >Price</label>
+                        <input placeholder="1600" 
+                        name="price" 
+                        class="form-control"
+                        required
+                        />
+                    <div class="invalid-feedback">Price should be valid</div>
+                    </div>
+                    <div class="mb-3 col-md-8">
+                        <label for="country" class="form-label" >Country</label>
+                        <input placeholder="India" name="country" class="form-control"
+                        required
+                        />
+                    <div class="invalid-feedback">Country should be valid</div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="location" class="form-label" >Location</label>
+                    <input placeholder="calangute, Goa" name="location" class="form-control"
+                    required
+                    />
+                <div class="invalid-feedback">Location should be valid</div>
+                </div>
+
+                <!-- Added Category Field -->
+                <div class="mb-3">
+                    <label for="category" class="form-label">Category</label>
+                    <select name="category" class="form-control" required>
+                        <option value="Trending">Trending</option>
+                        <option value="Rooms">Rooms</option>
+                        <option value="Iconic Cities">Iconic Cities</option>
+                        <option value="Mountain">Mountain</option>
+                        <option value="Castle">Castle</option>
+                        <option value="Camping">Camping</option>
+                        <option value="Farms">Farms</option>
+                        <option value="Arctic">Arctic</option>
+                        <option value="Villa">Villa</option>
+                        <option value="Chalet">Chalet</option>
+                        <option value="Cabin">Cabin</option>
+                        <option value="Treehouse">Treehouse</option>
+                        <option value="Apartment">Apartment</option>
+                        <option value="Cottage">Cottage</option>
+                        <option value="Beach House">Beach House</option>
+                    </select>
+                    <div class="invalid-feedback">Please select a category</div>
+                </div>
+
+                <br>
+                <button class="btn btn-dark add-btn" >Add</button>
+                <br><br>
+            </form>
+        </div>
+    </div>
+    
+</body>
+</html>

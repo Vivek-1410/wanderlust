@@ -1,0 +1,13 @@
+.listing-detail-box {
+    width: 600px;
+}
+
+.listing-detail-box , img{
+    height: 500px;
+    width: 500px;
+    border-radius: 10px;
+}
+
+
+
+

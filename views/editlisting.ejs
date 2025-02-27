@@ -1,0 +1,53 @@
+
+<% layout("/layouts/boilerplate") %>
+<br>
+    <div class="row">
+        <div class="col-8 offset-2" >
+            <h2>Edit your Listing here </h2>
+            <form method="POST" action="/listings/<%= tobeEdited._id%>/?_method=PUT" enctype="multipart/form-data">
+                <div class="mb-3" >
+                    <label for="title" class="form-label" >Title</label>
+                    <input class="form-control" value="<%= tobeEdited.title %>" name="title"/>
+                </div>
+                <div  class="mb-3">
+                    <label for="description" class="form-label" >Description</label>
+                    <textarea placeholder="enter description" 
+                    class="form-control" name="description"><%= tobeEdited.description %></textarea> 
+                </div>
+
+                <div class="mb-3" >
+                    Original Listing Image <br>
+                    <img style="width: 300px; height: 200px;"  src="<%= originalImageurl %>" >
+                </div>
+
+                <div class="mb-3">
+                    <label for="image" class="form-label" >Upload New Image</label>
+                    <input 
+                        class="form-control"
+                        name="image"
+                        type="file"
+                        />
+                </div>
+                <div class="row" >
+                    <div class="mb-3 col-md-4">
+                        <label for="price" class="form-label" >Price</label>
+                        <input value="<%= tobeEdited.price %>" type="Number" name="price" class="form-control"/>
+                    </div>
+                    <div class="mb-3 col-md-8">
+                        <label for="country" class="form-label" >Country</label>
+                        <input value="<%= tobeEdited.country %>" name="country" class="form-control"/>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="location" class="form-label" >Location</label>
+                    <input value="<%= tobeEdited.location %>" name="location" class="form-control"/>
+                </div>
+                <br>
+                <button class="btn btn-dark add-btn" >Edit</button>
+                <br><br>
+            </form>
+        </div>
+    </div>
+    
+</body>
+</html>

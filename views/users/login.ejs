@@ -1,0 +1,39 @@
+<% layout("/layouts/boilerplate") %>
+
+<% if (error) { %>
+    <div class="alert alert-danger alert-dismissible fade show" role="alert" style="margin-top: 10px;">
+        <%= error %>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+<% } %>
+
+<div class="container d-flex justify-content-center align-items-center mt-5 mb-5" style="margin-top: 10rem;">
+    <div class="col-lg-4 col-md-6 col-12">
+        <div class="card shadow-sm border rounded-3 p-4">
+            <h1 class="text-center mb-4" style="color: rgb(239, 105, 127);" >Login</h1>
+            <form method="POST" action="/login" novalidate class="needs-validation">
+                <div class="mb-3">
+                    <label for="username" class="form-label">Username</label>
+                    <input 
+                        class="form-control" 
+                        id="username"
+                        name="username"
+                        type="text"
+                        required
+                    />
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password</label>
+                    <input 
+                        class="form-control" 
+                        id="password"
+                        name="password"
+                        type="password"
+                        required
+                    />
+                </div>
+                <button class="btn btn-success w-100 mb-3 mt-3" >Login</button>
+            </form>
+        </div>
+    </div>
+</div>

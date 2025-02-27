@@ -1,0 +1,111 @@
+body {
+    font-family: "Plus Jakarta Sans", sans-serif;
+}
+.All-listings { 
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px; 
+    width: 100%;
+}
+
+.listing {
+    height: 300px;
+    width: 200px;
+}
+
+.listing p,h3 {
+    font-size: 16px;
+}
+
+.listing-image {
+    height: 200px;
+    width: 200px;
+    border-radius: 6px;
+    object-fit: cover; 
+}
+
+.listing-card {
+    border: none !important;
+    margin-bottom: 2rem !important;
+}
+
+.card-img-top {
+    object-fit: cover !important;
+    width: 100% !important;
+    border-radius: 1rem !important;
+}
+
+.card-body {
+    padding: 0;
+}
+
+.card-body p {
+    font-weight: 400 !important;
+}
+
+.listing-link {
+    text-decoration: none;
+}
+
+.card-img-overlay {
+    opacity: 0;
+}
+
+.card-img-overlay:hover{
+    opacity: 0.2;
+    background-color: white;
+}
+
+.add-btn {
+    background-color: #fe424d;
+    border: none;
+}
+
+.edit-btn {
+    background-color: #fe424d;
+    border: none;
+}
+
+.show-img {
+    height: 36vh;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.f-info-links a {
+    text-decoration: none;
+    color: #222222;
+}
+
+.f-info-links a:hover {
+    text-decoration: underline;
+}
+
+.f-info {
+    background-color: #ebebeb;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    gap: 20px;
+    font-size: 20px;
+}
+
+.f-info-socials {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
