@@ -2,7 +2,7 @@ if(process.env.NODE_ENV != "production") {
     require("dotenv").config();
 }
 
-
+const { createProxyMiddleware } = require("http-proxy-middleware");
 const express = require("express");
 const app = express();
 const path = require("path");
@@ -86,6 +86,17 @@ app.use((req, res, next) => {
     res.locals.currUser = req.user;
     next();
 });
+
+
+app.use('/osm', createProxyMiddleware({
+    target: 'https://nominatim.openstreetmap.org',
+    changeOrigin: true,
+    pathRewrite: { '^/osm': '/' },
+    secure: true
+}));
+
+
+
 
 
 app.use("/listings", listingRouter );
