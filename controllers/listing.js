@@ -93,7 +93,7 @@ module.exports.editListingForm = async (req, res, next) => {
             next(new ExpressError(404, "Listing not found!" ))
         }
         let originalImageurl = tobeEdited.image.url;
-        originalImageurl = originalImageurl.replace("/upload", "/upload/h_300,w_250");
+        // originalImageurl = originalImageurl.replace("/upload", "/upload/h_300,w_250");
         res.render("editlisting.ejs" , { tobeEdited, originalImageurl });
     } catch (err) {
         next(err);

@@ -26,24 +26,12 @@ module.exports.isOwner = async (req, res, next) => {
     next();
 }
 
- // Import ObjectId if not already imported
-
 module.exports.isReviewAuthor = async (req, res, next) => {
     const { id, reviewId } = req.params;
-    
-    // Find the listing and populate its reviews (this will give us the full review objects)
     let listing = await Listing.findById(id).populate('reviews');
-    
-    // Log the structure of reviews to ensure they are populated correctly
     console.log("Listing Reviews:", listing.reviews);
-    
-    // Find the review by ID using ObjectId comparison
-    let review = listing.reviews.find(r => r._id.equals(new ObjectId(reviewId)));  // Correct usage of ObjectId
-    
-    // Log review to check if it's found correctly
+    let review = listing.reviews.find(r => r._id.equals(new ObjectId(reviewId))); 
     console.log("Review found:", review);
-    
-    // If review is not found or the author does not match
     if (!review || !review.author || !review.author._id.equals(res.locals.currUser._id)) {
         req.flash("error", "You can only delete your own reviews.");
         return res.redirect(`/listings/${id}`);
@@ -51,11 +39,6 @@ module.exports.isReviewAuthor = async (req, res, next) => {
     
     next();
 }
-
-
-
-
-
 
 
 module.exports.saveRedirectUrl = (req, res, next) => {
