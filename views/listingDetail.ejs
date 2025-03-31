@@ -124,11 +124,9 @@
     <div id="map" style="height: 500px; width: 100%; border: 1px solid rgb(234, 219, 219); border-radius: 1rem; margin-bottom: 2rem;"></div>
 </div>
 
-<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 <script>
-    var map;
-
-    function geocodeAddress() {
+    document.addEventListener("DOMContentLoaded", function() {
+        var map;
         var address = "<%= listingDetail.location %>, <%= listingDetail.country %>";
 
         if (!address || address.trim() === "") {
@@ -142,14 +140,13 @@
             .then(response => response.json())
             .then(data => {
                 if (data && data.length > 0) {
-                    var lat = data[0].lat;
-                    var lon = data[0].lon;
+                    var lat = parseFloat(data[0].lat);
+                    var lon = parseFloat(data[0].lon);
 
                     map = L.map('map').setView([lat, lon], 13);
 
                     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-                        lang: 'en' 
+                        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                     }).addTo(map);
 
                     L.marker([lat, lon]).addTo(map)
@@ -163,9 +160,5 @@
                 console.error("Error:", error);
                 alert("Something went wrong. Please try again.");
             });
-    }
-
-    window.onload = function() {
-        geocodeAddress();
-    };
+    });
 </script>
