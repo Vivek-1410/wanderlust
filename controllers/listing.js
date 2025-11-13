@@ -138,9 +138,9 @@
 // }
 
 
- const Listing = require("../models/listing.js");
+const Listing = require("../models/listing.js");
 const ExpressError = require("../utils/ExpressError.js");
-const fetch = require("node-fetch"); 
+// const fetch = require("node-fetch"); 
 
 // 🧠 LIST ALL LISTINGS
 module.exports.index = async (req, res) => {
@@ -177,33 +177,32 @@ module.exports.showListing = async (req, res, next) => {
 // 🆕 CREATE NEW LISTING (with AWS S3 image)
 module.exports.newListing = async (req, res, next) => {
   try {
-    // ✅ Get image details from AWS S3
-    const url = req.file.location;   // S3 URL
-    const filename = req.file.key;   // Unique file name in S3
+    if (!req.file) {
+      req.flash("error", "Image upload failed!");
+      return res.redirect("/listings/new");
+    }
 
-    // ✅ Get coordinates from OpenStreetMap
+    const url = req.file.location;   // S3 URL
+    const filename = req.file.key;   // S3 file name
+
     const address = `${req.body.location}, ${req.body.country}`;
-    const geocodeUrl = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(address)}&language=en`;
-    const geocodeResponse = await fetch(geocodeUrl);
-    const data = await geocodeResponse.json();
+    const geoURL = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(address)}&limit=1`;
+
+    const response = await fetch(geoURL);
+    const data = await response.json();
 
     const listingData = {
       ...req.body,
       owner: req.user._id,
-      image: { url, filename },
+      image: { url, filename }
     };
 
-    // ✅ Add coordinates if found
     if (data && data.length > 0) {
-      const lat = data[0].lat;
-      const lon = data[0].lon;
       listingData.geometry = {
         type: "Point",
-        coordinates: [lon, lat],
+        coordinates: [data[0].lon, data[0].lat]
       };
-      console.log("Listing created with geolocation.");
-    } else {
-      console.log("Geolocation not found, saving without coordinates.");
+      console.log("Geolocation added.");
     }
 
     const newlisting = new Listing(listingData);
@@ -211,48 +210,7 @@ module.exports.newListing = async (req, res, next) => {
 
     req.flash("success", "Listing created successfully!");
     res.redirect("/listings");
-  } catch (err) {
-    next(err);
-  }
-};
 
-// 📂 CATEGORY-BASED LISTINGS
-module.exports.categoryListing = async (req, res) => {
-  const selectedCategory = req.query.category;
-  const categoryListings = await Listing.find({
-    category: selectedCategory[0],
-  });
-  res.render("categoryListings", { listings: categoryListings });
-};
-
-// 🔎 SEARCH DESTINATIONS
-module.exports.searchDestination = async (req, res) => {
-  const searchQuery = req.body.search_dest;
-  let matchedDest = await Listing.find({
-    country: new RegExp(searchQuery, "i"),
-  });
-
-  if (!matchedDest || matchedDest.length === 0) {
-    matchedDest = await Listing.find({
-      location: new RegExp(searchQuery, "i"),
-    });
-  }
-
-  res.render("searchResults", { matchedDest, searchQuery });
-};
-
-// 🧩 EDIT LISTING FORM
-module.exports.editListingForm = async (req, res, next) => {
-  try {
-    const { id } = req.params;
-    const tobeEdited = await Listing.findById(id);
-
-    if (!tobeEdited) {
-      return next(new ExpressError(404, "Listing not found!"));
-    }
-
-    const originalImageurl = tobeEdited.image.url;
-    res.render("editlisting.ejs", { tobeEdited, originalImageurl });
   } catch (err) {
     next(err);
   }

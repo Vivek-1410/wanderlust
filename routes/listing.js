@@ -62,27 +62,74 @@
 
 // routes/listing.js
 
+// const express = require("express");
+// const router = express.Router();
+// const ListingController = require("../controllers/listing.js");
+// const { isLoggedIn, isOwner } = require("../middleware.js");
+
+
+// const upload = require("../utils/s3");
+
+// router.route("/")
+//   .get(ListingController.index)
+//   .post(
+//     isLoggedIn,
+//     upload.single("image"),  
+//     ListingController.newListing
+//   );
+
+// router.route("/category")
+//   .get(ListingController.categoryListing);
+
+// router.route("/place")
+//   .post(ListingController.searchDestination);
+
+// router.route("/new")
+//   .get(
+//     isLoggedIn,
+//     ListingController.form
+//   );
+
+
+// router.route("/:id")
+//   .get(ListingController.showListing)
+//   .put(
+//     isLoggedIn,
+//     isOwner,
+//     upload.single("image"), 
+//     ListingController.editListing
+//   )
+//   .delete(
+//     isLoggedIn,
+//     ListingController.deleteListing
+//   );
+
+// router.route("/:id/edit")
+//   .get(
+//     isLoggedIn,
+//     ListingController.editListingForm
+//   );
+
+// module.exports = router;
+
+
 const express = require("express");
 const router = express.Router();
 const ListingController = require("../controllers/listing.js");
 const { isLoggedIn, isOwner } = require("../middleware.js");
 
-
-const upload = require("../utils/s3");
+const multer = require("multer");
+const { storage } = require("../utils/s3.js");
+const upload = multer({ storage });
 
 router.route("/")
   .get(ListingController.index)
   .post(
     isLoggedIn,
-    upload.single("image"),  
+    upload.single("image"),
     ListingController.newListing
   );
-
-router.route("/category")
-  .get(ListingController.categoryListing);
-
-router.route("/place")
-  .post(ListingController.searchDestination);
+  
 
 router.route("/new")
   .get(
@@ -90,13 +137,12 @@ router.route("/new")
     ListingController.form
   );
 
-
 router.route("/:id")
   .get(ListingController.showListing)
   .put(
     isLoggedIn,
     isOwner,
-    upload.single("image"), 
+    upload.single("image"),
     ListingController.editListing
   )
   .delete(
@@ -104,10 +150,7 @@ router.route("/:id")
     ListingController.deleteListing
   );
 
-router.route("/:id/edit")
-  .get(
-    isLoggedIn,
-    ListingController.editListingForm
-  );
+
 
 module.exports = router;
+
