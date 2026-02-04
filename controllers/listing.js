@@ -140,7 +140,7 @@
 
  const Listing = require("../models/listing.js");
 const ExpressError = require("../utils/ExpressError.js");
-const fetch = require("node-fetch"); 
+const fetch = require("node-fetch"); // ensure you have installed this (npm install node-fetch)
 
 // 🧠 LIST ALL LISTINGS
 module.exports.index = async (req, res) => {
