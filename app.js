@@ -46,11 +46,10 @@ app.engine("ejs", ejsMate);
 
 const store = MongoStore.create({
     mongoUrl: dbUrl,
-    crypto :{
-        secret: process.env.SECRET
-    },
-    touchAfter: 24 * 3600,
-})
+    secret: process.env.SECRET,
+    touchAfter: 24 * 3600
+});
+
 
 store.on("error", () => {
     console.log("ERROR in MONGO SESSION STORE", err)
@@ -81,11 +80,12 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 app.use((req, res, next) => {
-    res.locals.success = req.flash("success"); 
+    res.locals.currUser = req.user || null;
+    res.locals.success = req.flash("success");
     res.locals.error = req.flash("error");
-    res.locals.currUser = req.user;
     next();
 });
+
 
 
 app.use('/osm', createProxyMiddleware({

@@ -51,7 +51,20 @@ const listingSchema = new Schema({
         coordinates: {
             type: [Number],
         }
+    }, 
+    nearbyPlaces: [
+        {
+            name: String,
+            category: String,
+            distance: Number
+        }
+    ], 
+    nearbyStatus: {
+        type: String,
+        enum: ["pending", "ready", "failed"],
+        default: "pending"
     }
+
 });
 
 listingSchema.post("findOneAndDelete", async (listing) => {

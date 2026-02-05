@@ -122,6 +122,9 @@
         <h3 class="mt-3">Where you'll be</h3>
     </div>
     <div id="map" style="height: 500px; width: 100%; border: 1px solid rgb(234, 219, 219); border-radius: 1rem; margin-bottom: 2rem;"></div>
+    <form method="GET" action="/listings/<%= listingDetail._id %>/nearbyplaces">
+                                        <button class="btn btn-sm btn-outline-danger mt-2 mb-2">Explore more</button>
+    </form>
 </div>
 
 <script>
